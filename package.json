@@ -10,7 +10,7 @@
     "dev": "concurrently -k -n \"VITE,ELECTRON\" -c \"cyan,yellow\" \"vite\" \"npm run electron:dev\"",
     "host": "vite --host",
     "web": "vite --host",
-    "build:web": "vite build",
+    "build:web": "tsc -p tsconfig.electron.json && vite build",
     "preview": "vite preview --host",
     "electron:dev": "wait-on http://localhost:5173 && tsc -p tsconfig.electron.json && cross-env NODE_ENV=development node scripts/electron-dev.cjs",
     "build": "tsc -p tsconfig.electron.json && vite build",
