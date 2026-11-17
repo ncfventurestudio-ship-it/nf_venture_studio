@@ -5,15 +5,17 @@
   "author": "Prasadsoftware and Technical Solutions",
   "license": "UNLICENSED",
   "private": true,
-  "main": "dist-electron/electron/main.js",
+  "main": "server.cjs",
   "scripts": {
+    "start": "node server.cjs",
     "dev": "concurrently -k -n \"VITE,ELECTRON\" -c \"cyan,yellow\" \"vite\" \"npm run electron:dev\"",
     "host": "vite --host",
     "web": "vite --host",
-    "build:web": "tsc -p tsconfig.electron.json && vite build",
+    "build:web": "vite build",
+    "build:electron": "tsc -p tsconfig.electron.json",
     "preview": "vite preview --host",
     "electron:dev": "wait-on http://localhost:5173 && tsc -p tsconfig.electron.json && cross-env NODE_ENV=development node scripts/electron-dev.cjs",
-    "build": "tsc -p tsconfig.electron.json && vite build",
+    "build": "cross-env ELECTRON=true tsc -p tsconfig.electron.json && cross-env ELECTRON=true vite build",
     "dist": "npm run build && electron-builder",
     "dist:win": "npm run build && electron-builder --win --x64",
     "prisma:generate": "prisma generate",
@@ -86,6 +88,9 @@
     "zustand": "^4.5.4"
   },
   "build": {
+    "extraMetadata": {
+      "main": "dist-electron/electron/main.js"
+    },
     "appId": "com.prasadsoftware.hardwareservicepro",
     "productName": "Hardware Service Pro",
     "directories": {
